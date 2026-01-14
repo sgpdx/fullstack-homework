@@ -11,6 +11,7 @@ Use console.log() to write the proper output to the command line.
 
 // Code completed by Serena Glick (sgpdx) on Jan 8, 2026
 // Algorithm in opposite order of instructions, in order of importance
+// Copilot helped me with the framework syntax: () => {} part and for the loop structure
 
 // defining the function
 const fizzbuzz = () => {
