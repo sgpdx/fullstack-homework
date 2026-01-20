@@ -1,6 +1,8 @@
 /** Exercise 01 - Coins **/
 
-//Completed by Serena Glick (sglick@pdx.edu / sgpdx@github), January 2026
+//Completed by Serena Glick (sglick@pdx.edu / sgpdx@github), on January 19, 2026
+//Note: This first exercise was merged to main early because there was a mixup with
+//merging my HW 1 code (rebase vs. merge, I didn't understand what I was doing)
 
 const calculateChange = (input) => {
   //Verify input is valid
