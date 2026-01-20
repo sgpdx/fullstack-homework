@@ -9,26 +9,14 @@ Use console.log() to write the proper output to the command line.
 
 **/
 
-// 1
-// 2
-// fizz
-// 4
-// buzz
-// fizz
-// 7
-// 8
-// fizz
-// buzz
-// 11
-// fizz
-// 13
-// 14
-// fizzbuzz
-// ...
+// Code completed by Serena Glick (sgpdx) on Jan 8, 2026
+// Algorithm in opposite order of instructions, in order of importance
+// Copilot helped me with the framework syntax: () => {} part and for the loop structure
 
+// defining the function
 const fizzbuzz = () => {
   for (let i = 1; i <= 100; i++) {
-    if (i % 3 === 0 && i % 5 === 0) {
+    if (i % 15 === 0) {
       console.log("fizzbuzz");
     } else if (i % 5 === 0) {
       console.log("buzz");
@@ -40,4 +28,5 @@ const fizzbuzz = () => {
   }
 };
 
+// running the function
 fizzbuzz();
