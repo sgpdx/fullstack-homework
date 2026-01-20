@@ -12,6 +12,8 @@ const port = process.env.PORT || 5001;
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
 
 // Code completed by Serena Glick (sglick@pdx.edu / sgpdx@github), on January 20, 2026
+// Some basic syntax for the routes was referenced from https://github.com/caterinasworld/fullstack-examples/blob/main/node/03-routing.js
+
 const server = http.createServer((req, res) => {
   const routes = [
     "welcome",
@@ -22,7 +24,7 @@ const server = http.createServer((req, res) => {
     "other",
   ];
 
-  // main route was not asked for, but here is one
+  // main route was not asked for, but here is one with all the links to the other pages
   if (req.method === "GET" && req.url === "/") {
     console.log(`${req.method} - ${req.url}`);
     res.writeHead(200, { "Content-Type": "text/html" });
