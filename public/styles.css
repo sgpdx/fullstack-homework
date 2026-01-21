@@ -1,0 +1,15 @@
+label {
+  display: inline-block;
+  width: 100px;
+  font-size: 18px;
+}
+
+input[type="text"],
+input[type="email"] {
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  padding: 5px 5px;
+  font-size: 16px;
+}
