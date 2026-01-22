@@ -34,11 +34,15 @@ const server = http.createServer((req, res) => {
 
     req.on("end", () => {
       const userdata = querystring.parse(body);
-      const { username, email } = userdata;
+      const { username, email, comments, newsletter } = userdata;
 
       res.writeHead(200, { "Content-Type": "text/html" });
       res.write(`<p>Username: ${username}</p>`);
       res.write(`<p>Email: ${email}</p>`);
+      res.write(`<p>Comments: ${comments}</p>`);
+      res.write(
+        `<p>Newsletter: ${newsletter ? "Yes, sign me up for the newsletter" : "No, thank you."}</p>`,
+      );
       res.end();
     });
   }

@@ -13,3 +13,9 @@ input[type="submit"] {
   padding: 5px 5px;
   font-size: 16px;
 }
+
+input[name="comments"] {
+  width: 330px;
+  word-wrap: break-word;
+  white-space: normal;
+}
