@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -13,21 +13,57 @@ const port = process.env.PORT || 5001;
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
 
 const routes = [
-  'welcome',
-  'redirect',
-  'redirected',
-  'cache',
-  'cookie',
-  'other',
+  "welcome",
+  "redirect",
+  "redirected",
+  "cache",
+  "cookie",
+  "other",
 ];
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.status(200);
-  res.set({ 'Content-Type': 'text/html' });
-  res.send('Express Routing Exercise');
+  res.set({ "Content-Type": "text/html" });
+  res.send("Express Routing Exercise");
 });
 
-// Add your code here
+// Code completed by Serena Glick (sglick@pdx.edu / sgpdx@github), on January 22, 2026
+// I used this script as a reference to get started: https://github.com/caterinasworld/fullstack-examples/blob/main/express/02-routing.js
+app.get("/welcome", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/html" });
+  res.send("<h1>Welcome weary traveler!</h1>");
+});
+
+app.get("/redirect", (req, res) => {
+  res.redirect(302, "/redirected");
+});
+
+app.get("/redirected", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/html" });
+  res.send("You have been redirected here.  That's life.");
+});
+
+app.get("/cache", (req, res) => {
+  res.status(200);
+  // I asked AI (GitHub CoPilot) to help with this line because I could only find
+  // cache information for using static files in the express.js documenation and online searches
+  res.set({ "Content-Type": "text/html", "Cache-Control": "max-age=86400" });
+  res.send("This resource was cached");
+});
+
+app.get("/cookie", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/html" });
+  res.send("Cookies....yumm!");
+  res.cookie("hello", "world");
+});
+
+// This code block was based on documentation found at: https://expressjs.com/en/starter/faq.html#how-do-i-handle-404-responses
+app.use((req, res) => {
+  res.status(404).send("404 - page not found");
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
