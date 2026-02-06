@@ -1,0 +1,16 @@
+//- Initial code outline from https://github.com/caterinasworld/fullstack-examples/tree/main/express/09-pug
+//- Edits and additional code by Serena Glick, February 2026
+nav.navbar.fixed-top.navbar-expand-sm.navbar-light.bg-light
+  a.navbar-brand(href='/')| Home
+  button.navbar-toggler(type='button' data-toggle='collapse' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  div.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto 
+      //-li.nav-item   
+        a.nav-link(href='/')| Home 
+      li.nav-item   
+        a.nav-link(href='/capitals')| Capitals
+      li.nav-item   
+        a.nav-link(href='/populous') Populous
+      li.nav-item   
+        a.nav-link(href='/regions') Regions

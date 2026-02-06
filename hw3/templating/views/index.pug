@@ -1,0 +1,15 @@
+//- Initial code outline from https://github.com/caterinasworld/fullstack-examples/tree/main/express/09-pug
+//- Edits and additional code by Serena Glick, February 2026
+doctype html
+html
+  include includes/head.pug
+  body
+    header
+      include includes/navbar.pug
+    main.container
+      h1 #{heading}
+      section.text Welcome to the #{title} page!
+      img(src='https://placecats.com/300/200' alt='image of a cat' width='300' height='200')
+      section.text This website was built with Pug templates, Express, and API data from: 
+      a(href="https://restcountries.com/") Rest Countries API
+    include includes/footer.pug
