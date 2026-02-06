@@ -4,6 +4,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
+const { getCapitalsData } = require("./back-end.js");
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "pug");
@@ -17,11 +18,13 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/capitals", (req, res) => {
+app.get("/capitals", async (req, res) => {
+  const capitalsData = await getCapitalsData();
   res.render("page", {
     title: "Capitals",
     heading: "Countries and Capitals",
     subheading: "You may be surprised at what you learn!",
+    data: capitalsData,
   });
 });
 
