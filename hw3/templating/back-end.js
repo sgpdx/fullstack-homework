@@ -3,6 +3,7 @@
 // Generic function to transform API data into item1/item2 format
 // So that it can be used in the Pug page.pug template
 // I had GitHub Copilot help me with this function
+// but it was my idea to have this kind of wrapper function to use with the pug template
 function transformData(data, item1Extractor, item2Extractor) {
   return data.map((item) => ({
     item1: item1Extractor(item),
@@ -18,18 +19,16 @@ async function getCapitalsData() {
     const data = await response.json();
 
     // I had GitHub Copilot help me extract the correct fields,
-    // Add "N/A" for countries without capitals,
-    // And sort by country name
-    // I then used this as a template for the other API functions
+    // It adds "N/A" for countries without capitals and sorts by country name
+    // I then used this as a template for the other API transform functions
     const processed = transformData(
       data,
       (country) => country.name.common,
       (country) =>
         country.capital && country.capital.length > 0
           ? country.capital[0]
-          : "N/A",
+          : "no data",
     ).sort((a, b) => a.item1.localeCompare(b.item1));
-
     return processed;
   } catch (error) {
     console.error("API error:", error);
@@ -44,11 +43,23 @@ async function getPopulousData() {
     );
     const data = await response.json();
 
-    // const processed = transformData(
-    //   data,
-    // TO DO
-
-    // return processed;
+    const processed = transformData(
+      data,
+      (country) => country.name.common,
+      (country) =>
+        // GitHub gave this suggestion to sort out only the higher populations here
+        // whereas I was going to do it afterwards, so good idea AI!
+        // return raw number here so we can sort numerically
+        country.population >= 50000000 ? country.population : null,
+    )
+      .filter((item) => item.item2 !== null)
+      .sort((a, b) => b.item2 - a.item2)
+      // AI suggested this part, to add the commas to make the population more readable
+      .map((item) => ({
+        item1: item.item1,
+        item2: item.item2.toLocaleString(),
+      }));
+    return processed;
   } catch (error) {
     console.error("API error:", error);
     return [];

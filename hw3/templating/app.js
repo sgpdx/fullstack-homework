@@ -12,7 +12,6 @@ const {
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "pug");
-// app.use(express.static('/public'));
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
@@ -33,6 +32,7 @@ app.get("/capitals", async (req, res) => {
 });
 
 app.get("/populous", async (req, res) => {
+  const populousData = await getPopulousData();
   res.render("page", {
     title: "Populous",
     heading: "Most Populous Countries",
