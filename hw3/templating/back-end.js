@@ -37,4 +37,56 @@ async function getCapitalsData() {
   }
 }
 
-module.exports = { getCapitalsData };
+async function getPopulousData() {
+  try {
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=name,population",
+    );
+    const data = await response.json();
+
+    // const processed = transformData(
+    //   data,
+    // TO DO
+
+    // return processed;
+  } catch (error) {
+    console.error("API error:", error);
+    return [];
+  }
+}
+
+async function getRegionsData() {
+  try {
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=region",
+    );
+    const data = await response.json();
+
+    // Count up the number of countries in each region
+    // I had GitHub Copilot help me do this count since I was getting confused trying to do it myself
+    const counts = data.reduce((count, country) => {
+      const region = country.region || "Unknown";
+      count[region] = (count[region] || 0) + 1;
+      return count;
+    }, {});
+
+    // Convert counts to an intermediate array, then use transformData
+    // I had GitHub Copilot help me with this part so I can reuse the same transformData function
+    const entries = Object.entries(counts).map(([region, count]) => ({
+      region,
+      count,
+    }));
+    const processed = transformData(
+      entries,
+      (entry) => entry.region,
+      (entry) => entry.count,
+    );
+
+    return processed;
+  } catch (error) {
+    console.error("API error:", error);
+    return [];
+  }
+}
+
+module.exports = { getCapitalsData, getPopulousData, getRegionsData };

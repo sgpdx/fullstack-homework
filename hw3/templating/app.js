@@ -4,7 +4,11 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
-const { getCapitalsData } = require("./back-end.js");
+const {
+  getCapitalsData,
+  getPopulousData,
+  getRegionsData,
+} = require("./back-end.js");
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "pug");
@@ -28,19 +32,22 @@ app.get("/capitals", async (req, res) => {
   });
 });
 
-app.get("/populous", (req, res) => {
+app.get("/populous", async (req, res) => {
   res.render("page", {
     title: "Populous",
     heading: "Most Populous Countries",
     subheading: "Countries with a population of at least 50 million people",
+    data: populousData,
   });
 });
 
-app.get("/regions", (req, res) => {
+app.get("/regions", async (req, res) => {
+  const regionsData = await getRegionsData();
   res.render("page", {
     title: "Regions",
     heading: "Regions of the World",
     subheading: "Number of countries in each region",
+    data: regionsData,
   });
 });
 
