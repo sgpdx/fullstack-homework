@@ -11,12 +11,29 @@ function transformData(data, item1Extractor, item2Extractor) {
   }));
 }
 
+// I had GitHub Copilot suggest how to implement a cache, and after a few iterations
+// it came up with this idea of caching raw API responses since there is data processing
+// steps within each async function
+const rawCache = {
+  capitals: null,
+  populous: null,
+  regions: null,
+};
+
 async function getCapitalsData() {
   try {
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,capital",
-    );
-    const data = await response.json();
+    let data;
+    // Before making the API call we first check if the data is already in the cache
+    if (rawCache.capitals) {
+      data = rawCache.capitals;
+    } else {
+      const response = await fetch(
+        "https://restcountries.com/v3.1/all?fields=name,capital",
+      );
+      data = await response.json();
+      // Make sure the save the data into the cache in case this function is called again
+      rawCache.capitals = data;
+    }
 
     // I had GitHub Copilot help me extract the correct fields,
     // It checks for countries without capitals ("no data") and sorts by country name
@@ -38,10 +55,16 @@ async function getCapitalsData() {
 
 async function getPopulousData() {
   try {
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,population",
-    );
-    const data = await response.json();
+    let data;
+    if (rawCache.populous) {
+      data = rawCache.populous;
+    } else {
+      const response = await fetch(
+        "https://restcountries.com/v3.1/all?fields=name,population",
+      );
+      data = await response.json();
+      rawCache.populous = data;
+    }
 
     const processed = transformData(
       data,
@@ -67,10 +90,16 @@ async function getPopulousData() {
 
 async function getRegionsData() {
   try {
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=region",
-    );
-    const data = await response.json();
+    let data;
+    if (rawCache.regions) {
+      data = rawCache.regions;
+    } else {
+      const response = await fetch(
+        "https://restcountries.com/v3.1/all?fields=region",
+      );
+      data = await response.json();
+      rawCache.regions = data;
+    }
 
     // Count up the number of countries in each region
     // I had GitHub Copilot help me do this count
