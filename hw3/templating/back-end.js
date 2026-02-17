@@ -30,6 +30,11 @@ async function getCapitalsData() {
       const response = await fetch(
         "https://restcountries.com/v3.1/all?fields=name,capital",
       );
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
       data = await response.json();
       // Make sure the save the data into the cache in case this function is called again
       rawCache.capitals = data;
@@ -62,13 +67,18 @@ async function getPopulousData() {
       const response = await fetch(
         "https://restcountries.com/v3.1/all?fields=name,population",
       );
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
       data = await response.json();
       rawCache.populous = data;
     }
 
     const processed = transformData(
       data,
-      (country) => country.name.common,
+      (country) => country.name.common || "No common country name",
       (country) =>
         // GitHub gave this suggestion to sort out only the higher populations here
         // whereas I was going to do it afterwards
@@ -97,6 +107,11 @@ async function getRegionsData() {
       const response = await fetch(
         "https://restcountries.com/v3.1/all?fields=region",
       );
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
       data = await response.json();
       rawCache.regions = data;
     }
